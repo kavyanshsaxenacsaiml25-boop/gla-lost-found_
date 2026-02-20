@@ -203,6 +203,12 @@ def uploaded_file(filename):
 def logout():
     session.clear()
     return redirect(url_for('login'))
+    @app.route('/')
+def home():
+    conn = sqlite3.connect('database.db')
+    items = conn.execute("SELECT * FROM items").fetchall()
+    conn.close()
+    return render_template('index.html', items=items)
 
 # ---------------- RUN ----------------
 if __name__ == '__main__':
